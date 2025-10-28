@@ -54,7 +54,7 @@ class TaskController extends Controller
     {
         //
         $task = $this->taskService->getTaskById($id);
-        return view('tasks.edit', compact('task'));
+        return view('tasks.show', compact('task'));
     }
 
     /**
@@ -63,6 +63,8 @@ class TaskController extends Controller
     public function edit(string $id)
     {
         //
+        $task = $this->taskService->getTaskById($id);
+        return view('tasks.edit', compact('task'));
     }
 
     /**
@@ -78,8 +80,10 @@ class TaskController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(int $id)
     {
         //
+        $this->taskService->deleteTask($id);
+        return redirect()->route('tasks.index')->with('message', 'Delete task successfully');
     }
 }

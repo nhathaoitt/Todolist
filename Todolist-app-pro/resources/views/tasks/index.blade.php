@@ -1,6 +1,12 @@
 @extends('tasks.layout')
 
 @section('content')
+@if (session('message'))
+    <div class="alert alert-success alert-dismissible fade show" role="alertdialog">
+        {{session('message')}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+@endif
 <div class="card shadow-sm">
     <div class="card-header bg-white d-flex justify-content-between align-items-center">
         <h5 class="mb-0">Danh sách công việc</h5>
@@ -33,16 +39,21 @@
                                 <span class="badge bg-danger">Đang làm</span>
                                 @break
                             @case(2)
-                                <span class="badge bg-warning">Hoàn thành</span>
+                                <span class="badge bg-success">Hoàn thành</span>
                                 @break
                             @default
-                                <span class="badge bg-text-white">Chưa làm</span>
+                                <span class="badge bg-warning">Chưa làm</span>
                         @endswitch
                     </td>
                     <td class="text-end">
                         <a href="{{ route('tasks.show', $task->id) }}" class="btn btn-sm btn-info text-white">Xem</a>
-                        <a href="{{ route('tasks.show', $task->id) }}" class="btn btn-sm btn-warning">Sửa</a>
-                        <button class="btn btn-sm btn-danger">Xóa</button>
+                        <a href="{{ route('tasks.edit', $task->id) }}" class="btn btn-sm btn-warning">Sửa</a>
+                        <form action="{{route('tasks.destroy', $task->id)}}" method="POST" style="display: inline-block;"
+                            onsubmit="return confirm('Bạn có chắc muốn xóa task này không??')">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-sm btn-danger">Xóa</button>
+                        </form>
                     </td>
                 </tr>
                 @empty

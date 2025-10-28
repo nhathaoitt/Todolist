@@ -5,7 +5,7 @@
     <div class="col-md-6">
         <div class="card shadow-sm">
             <div class="card-header bg-white">
-                <h5 class="mb-0">+ Thêm công việc</h5>
+                <h5 class="mb-0">✏️ Sửa công việc</h5>
             </div>
             <div class="card-body">
                 <form action="{{route('tasks.update', $task->id)}}" method="POST" novalidate>
@@ -41,9 +41,9 @@
                     <div class="mb-3">
                         <label for="status" class="form-label">Trạng thái</label>
                         <select id="status" name="status" @error('status') is-invalid @enderror class="form-select">
-                            <option value="0">Chưa làm</option>
-                            <option value="1">Đang làm</option>
-                            <option value="2">Hoàn thành</option>
+                            <option value="0" @if($task->status == 0) selected  @endif>Chưa làm</option>
+                            <option value="1" @if($task->status == 1) selected  @endif>Đang làm</option>
+                            <option value="2" @if($task->status == 2) selected  @endif>Hoàn thành</option>
                         </select>
                         @error('status')
                             <div class="invalid-feedback">
@@ -53,7 +53,7 @@
                     </div>
                     <div class="d-flex justify-content-between">
                         <a href="{{ route('tasks.index') }}" class="btn btn-secondary">⬅ Quay lại</a>
-                        <button type="submit" class="btn btn-primary">💾 Lưu</button>
+                        <button type="submit" class="btn btn-primary">✔ Cập nhật</button>
                     </div>
                 </form>
             </div>

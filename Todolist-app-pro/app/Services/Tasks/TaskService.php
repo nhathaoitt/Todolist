@@ -38,4 +38,10 @@ class TaskService extends BaseService {
 ;       }
         return $task;
     }
+    public function deleteTask(int $id)
+    {
+        $task = Task::findOrFail($id);
+        Task::delete($task);
+        return true;
+    }
 }
