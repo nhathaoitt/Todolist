@@ -10,7 +10,7 @@ class TaskService extends BaseService {
     
     public function getAllTask()
     {
-        $tasks = Task::all();
+        $tasks = Task::with('user')->orderBy('due_date')->paginate(10);
         return $tasks;
     }
     public function createTask($data)

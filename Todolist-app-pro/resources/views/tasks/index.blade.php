@@ -20,6 +20,8 @@
                     <th>Công việc</th>
                     <th>Hạn chót</th>
                     <th>Trạng thái</th>
+                    <th>Ngày tạo</th>
+                    <th>Người tạo</th>
                     <th class="text-end">Hành động</th>
                 </tr>
             </thead>
@@ -45,6 +47,8 @@
                                 <span class="badge bg-warning">Chưa làm</span>
                         @endswitch
                     </td>
+                    <td>{{ $task->created_at->format('Y-m-d') }}</td>
+                    <td>{{ $task->user->name }}</td>
                     <td class="text-end">
                         <a href="{{ route('tasks.show', $task->id) }}" class="btn btn-sm btn-info text-white">Xem</a>
                         <a href="{{ route('tasks.edit', $task->id) }}" class="btn btn-sm btn-warning">Sửa</a>
@@ -64,6 +68,10 @@
 
             </tbody>
         </table>
+        <!-- Hiển thị links phân trang -->
+        <div class="d-flex justify-content-end">
+            {{ $tasks->links('vendor.pagination.bootstrap-5') }}
+        </div>
     </div>
 </div>
 @endsection
